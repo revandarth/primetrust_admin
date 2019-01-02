@@ -1,0 +1,239 @@
+<!DOCTYPE>
+<html>
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.10/angular-material.min.css">
+<link rel="stylesheet" href="./index.css">
+  <title>Invest Now</title>
+</head>
+<body>
+    <div class="container" ng-controller="AppCtrl as vm" ng-cloak>
+        <md-toolbar class="md-primary">
+          <div class="md-toolbar-tools">
+            Bitcasis Dashboard
+          </div>
+        </md-toolbar>
+        <md-tabs md-border-bottom md-autoselect md-swipe-content md-dynamic-height>
+           <md-tab>
+             <md-tab-label>Entity</md-tab-label>
+             <md-tab-body class="md-padding">
+                <table class="table table-bordered">
+                   <thead>
+                     <tr>
+                       <th>Name</th>
+                       <th>Type</th>
+                       <th>Email</th>
+                       <th>Phone</th>
+                       <th>Tax Number</th>
+                       <th>kyc_status</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <tr ng-repeat="entity in vm.entities">
+                       <td>{{entity.name}}</td>
+                       <td>{{entity.type}}</td>
+                       <td>{{entity.email}}</td>
+                       <td>{{entity.phone}}</td>
+                       <td>{{entity.tax_id_number}}</td>
+                       <td>{{entity.kyc_status != null?entity.kyc_status:'-'}}</td>
+                     </tr>
+                   </tbody>
+                   </table>
+                  <md-content layout-padding>
+                      <form name="userForm">
+                        <div layout-gt-sm="row">
+                          <md-input-container class="md-block" flex-gt-sm>
+                            <label>Name</label>
+                            <input ng-model="vm.user.executive_name">
+                          </md-input-container>
+                          <md-input-container class="md-block" flex-gt-sm>
+                            <label>Entity Name</label>
+                            <input ng-model="vm.user.name">
+                          </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                          <md-input-container class="md-block" flex-gt-sm>
+                             <label>EMail</label>
+                            <input ng-model="vm.user.email" placeholder="Email">
+                          </md-input-container>
+                          <md-input-container class="md-block" flex-gt-sm>
+                            <label>SSN</label>
+                            <input ng-model="vm.user.tax_id_number" placeholder="12345">
+                          </md-input-container>
+                        </div>
+                        <md-input-container class="md-block">
+                          <label>Address</label>
+                          <input ng-model="vm.user.street_address_1">
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                          <label>Country</label>
+                          <input ng-model="vm.user.country">
+                        </md-input-container>
+                        <div layout-gt-sm="row">
+                          <md-input-container class="md-block" flex-gt-sm>
+                            <label>City</label>
+                            <input ng-model="vm.user.city">
+                          </md-input-container>
+                          <md-input-container class="md-block" flex-gt-sm>
+                            <label>Postal Code</label>
+                            <input name="postalCode" ng-model="vm.user.postalCode" placeholder="12345" required>
+                          </md-input-container>
+                        </div>
+                      </form>
+                  </md-content>
+             </md-tab-body>
+           </md-tab>
+           <md-tab md-on-select="vm.getOffering()">
+             <md-tab-label>Offering</md-tab-label>
+             <md-tab-body class="md-padding">
+                <table class="table table-bordered">
+                   <thead>
+                     <tr>
+                       <th>Name</th>
+                       <th>Min Amount</th>
+                       <th>Max Amount</th>
+                       <th>Type</th>
+                       <th>Accredited Investors</th>
+                       <th>Created Date</th>
+                       <th>Investments</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <tr ng-repeat="offering in vm.offering">
+                       <td>{{offering.name}}</td>
+                       <td>{{offering.min_amount}}</td>
+                       <td>{{offering.max_amount}}</td>
+                       <td>{{offering.type}}</td>
+                       <td>{{offering.accredited_investors}}</td>
+                       <td>{{offering.created_at | date:'mediumDate'}}</td>
+                       <td><button ng-click="vm.acceptInvestors(offering)">Accept</button></td>
+                     </tr>
+                   </tbody>
+                   </table>
+                    <md-content layout-padding>
+                        <form name="userForm">
+                          <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                              <label>Name</label>
+                              <input ng-model="vm.user.executive_name">
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                              <label>Entity Name</label>
+                              <input ng-model="vm.user.name">
+                            </md-input-container>
+                          </div>
+                          <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                               <label>EMail</label>
+                              <input ng-model="vm.user.email" placeholder="Email">
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                              <label>SSN</label>
+                              <input ng-model="vm.user.tax_id_number" placeholder="12345">
+                            </md-input-container>
+                          </div>
+                          <md-input-container class="md-block">
+                            <label>Address</label>
+                            <input ng-model="vm.user.street_address_1">
+                          </md-input-container>
+                          <md-input-container class="md-block">
+                            <label>Country</label>
+                            <input ng-model="vm.user.country">
+                          </md-input-container>
+                          <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                              <label>City</label>
+                              <input ng-model="vm.user.city">
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                              <label>Postal Code</label>
+                              <input name="postalCode" ng-model="vm.user.postalCode" placeholder="12345" required>
+                            </md-input-container>
+                          </div>
+                        </form>
+                    </md-content>
+             </md-tab-body>
+           </md-tab>
+           <md-tab md-on-select="vm.getInvestments()">
+             <md-tab-label>Investments</md-tab-label>
+             <md-tab-body class="md-padding">
+                <!-- <md-button class="md-primary">Create Invert</md-button> -->
+                <table class="table table-bordered">
+                   <thead>
+                     <tr>
+                       <th>Amount</th>
+                       <th>Bank Referenece</th>
+                       <th>Equity Share Price</th>
+                       <th>Payment Type</th>
+                       <th>Status</th>
+                       <th>Created Date</th>
+                       <th>Offering Url</th>
+                       <th>Clearance</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <tr ng-repeat="investment in vm.investments">
+                       <td>{{investment.amount}}</td>
+                       <td>{{investment.bank_reference}}</td>
+                       <td>{{investment.equity_share_price}}</td>
+                       <td>{{investment.funds_transfer_method}}</td>
+                       <td>{{investment.status}}</td>
+                       <td>{{investment.created_at | date:'mediumDate'}}</td>
+                       <td style="word-break: break-all;">{{investment.offering_url}}</td>
+                       <td>{{investment.cleared}}</td>
+                     </tr>
+                   </tbody>
+                   </table>
+                  <md-content layout-padding>
+                      <form name="investmentForm">
+                        <div layout-gt-sm="row">
+                          <md-input-container class="md-block" flex-gt-sm>
+                             <label>Amount</label>
+                            <input ng-model="vm.investment.amount" placeholder="Amount" type="number">
+                          </md-input-container>
+                          <md-input-container class="md-block" flex-gt-sm>
+                            <label>Share Amount</label>
+                            <input ng-model="vm.investment.equity_share_count" type="number">
+                          </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                          <md-input-container class="md-block" flex-gt-sm>
+                            <label>Offering</label>
+                            <md-select ng-model="vm.investment.offering_id">
+                             <md-option ng-repeat="offering in vm.offering" value="{{offering.id}}">
+                               {{offering.name}}
+                             </md-option>
+                            </md-select>
+                          </md-input-container>
+                          <md-input-container class="md-block" flex-gt-sm>
+                            <label>Payment Method</label>
+                            <md-select ng-model="vm.investment.payment_method">
+                             <md-option ng-repeat="payment in vm.payment_methods" value="{{payment}}">
+                               {{payment}}
+                             </md-option>
+                            </md-select>
+                          </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row" layout-align="end center">
+                            <button class="md-button md-primary" ng-click="vm.addInvestment()">Add</button>
+                        </div>
+                      </form>
+                  </md-content>
+             </md-tab-body>
+           </md-tab>
+     </md-tab>
+   </md-tabs>
+        <!-- <button type="button" data-fa-invest-now="LX7QXpSTlYWpuippIdI7HjIXKzoZJFSh:zoGKnsLsSriERdcUgEILhA" class="fa-invest-now-btn fa-invest-now-btn-7">Invest Now!</button> -->
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular-animate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular-aria.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.10/angular-material.min.js"></script>
+    <!-- <script src="https://my-sandbox.fundamerica.com/widgets/invest_now.min.js" id="fa-invest-now-launcher"></script> -->
+    <script src="controllers/controller.js"></script>
+    <script src="controllers/ajaxService.js"></script>
+</body>
+</html>

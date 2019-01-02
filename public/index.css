@@ -1,0 +1,37 @@
+
+.fa-invest-now .ssl {
+display: none;
+}
+.fa-invest-now .modal-header {
+background-image: none !important;
+background-color: #295E06 !important;
+color: #FFF !important;
+}
+.fa-invest-now .close {
+color: #FFF !important;
+opacity: 1.0 !important;
+}
+.fa-invest-now .modal-footer {
+background-image: none !important;
+background-color: #FFF !important;
+border-top: none !important;
+}
+.fa-invest-now .btn-primary {
+background-image: none !important;
+background-color: #295E06 !important;
+}
+.fa-invest-now .btn-primary:hover {
+background-color: #3B6B42 !important;
+}
+.fa-invest-now .help {
+background-image: none !important;
+background-color: #295E06 !important;
+box-shadow: none !important;
+color: #FFF !important;
+}
+.fa-invest-now .btn-default {
+background-image: none !important;
+}
+.fa-invest-now .alert-danger {
+background-image: none !important;
+}
